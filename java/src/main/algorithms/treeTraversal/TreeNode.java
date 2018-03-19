@@ -1,13 +1,13 @@
 package algorithms.treeTraversal;
 
-public class treeNode {
-    public treeNode(String value) {
+public class TreeNode {
+    public TreeNode(String value) {
         this.value = value;
         this.leftChild = null;
         this.rightChild = null;
     }
 
-    public treeNode(String value, treeNode leftChild, treeNode rightChild) {
+    public TreeNode(String value, TreeNode leftChild, TreeNode rightChild) {
         this.value = value;
         this.leftChild = leftChild;
         this.rightChild = rightChild;
@@ -17,16 +17,16 @@ public class treeNode {
         return value;
     }
 
-    public treeNode getLeftChild() {
+    public TreeNode getLeftChild() {
         return leftChild;
     }
 
-    public treeNode getRightChild() {
+    public TreeNode getRightChild() {
         return rightChild;
     }
 
     private String value;
-    private treeNode leftChild;
-    private treeNode rightChild;
+    private TreeNode leftChild;
+    private TreeNode rightChild;
 
 }

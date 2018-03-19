@@ -1,11 +1,11 @@
 package algorithms.treeTraversal;
 
-public class postorder {
-    private treeNode root;
+public class Preorder {
+    private TreeNode root;
     private StringBuilder builder;
     private String result;
 
-    public postorder(treeNode root) {
+    public Preorder(TreeNode root) {
         this.root = root;
         builder = new StringBuilder();
         traverse(this.root);
@@ -16,15 +16,15 @@ public class postorder {
         return result;
     }
 
-    private void traverse(treeNode node) {
+    private void traverse(TreeNode node) {
         if(node == null) {
             return;
         }
 
+        builder.append(node.getValue() + " ");
+
         traverse(node.getLeftChild());
 
         traverse(node.getRightChild());
-
-        builder.append(node.getValue() + " ");
     }
 }

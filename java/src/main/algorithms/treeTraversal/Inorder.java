@@ -1,11 +1,11 @@
 package algorithms.treeTraversal;
 
-public class inorder {
-    private treeNode root;
+public class Inorder {
+    private TreeNode root;
     private StringBuilder builder;
     private String result;
 
-    public inorder(treeNode root) {
+    public Inorder(TreeNode root) {
         this.root = root;
         builder = new StringBuilder();
         traverse(this.root);
@@ -16,7 +16,7 @@ public class inorder {
         return result;
     }
 
-    private void traverse(treeNode node) {
+    private void traverse(TreeNode node) {
         if(node == null) {
             return;
         }
