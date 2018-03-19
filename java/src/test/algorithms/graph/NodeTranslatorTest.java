@@ -17,5 +17,6 @@ public class NodeTranslatorTest {
     public void testNodeTranslator() {
         BreadthFirstSearch bfs = new BreadthFirstSearch(root);
         Assert.assertEquals("1 2 3 4 5 6 7 8 9 10 11 12 ", bfs.getResult());
+
     }
 }
