@@ -46,7 +46,7 @@ def splitInputs(list):
 			strings.append((orgValue.lower(), orgValue))
 			isNum.append(False)
 		except:
-			print "Unexpected error:", sys.exc_info()[0]
+			print(f"Unexpected error: {sys.exc_info()[0]}")
 			raise
 	return(num, strings, isNum)
 #End splitInputs
@@ -61,7 +61,7 @@ def processInputs(inputFilePath):
 		inputRaw = inputFile.read()
 		inputFile.close()
 	except:
-		print "Cannot open input file"
+		print("Cannot open input file")
 		exit()
 	#Split raw input into string array
 	inputs = inputRaw.split(' ')
@@ -101,7 +101,7 @@ def writeToOutputFile(outputFilePath, outputs):
 				outputFile.write(value + ' ')
 		outputFile.close()
 	except:
-		print "Cannot open output file"
+		print ("Cannot open output file")
 		exit()
 #End writeToOutputFile
 	

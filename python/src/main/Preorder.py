@@ -9,7 +9,7 @@ class BinaryTreeNode:
 def Preorder(node):
 	if node is None:
 		return
-	print node.value
+	print(node.value)
 	Preorder(node.left)
 	Preorder(node.right)
 

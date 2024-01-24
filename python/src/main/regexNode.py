@@ -1,34 +1,33 @@
 import sys
 import binascii
-import Queue
 
 class Node(object):
-    def __init__(self, value, end=False):
-    	self.end = False
-        self.value = value
-        self.children = set()
+	def __init__(self, value, end=False):
+		self.end = False
+		self.value = value
+		self.children = set()
 
-    def add_child(self, node):
-        self.children.add(node)
+	def add_child(self, node):
+		self.children.add(node)
 
-    def set_end(self, end):
-    	self.end = end
+	def set_end(self, end):
+		self.end = end
 
-    def matchesChild(self, value):
-    	for child in self.children:
-    		if child.value == value:
-    			return child
-    	return None
+	def matchesChild(self, value):
+		for child in self.children:
+			if child.value == value:
+				return child
+		return None
 
 root = Node('ROOT')
 
 def printTree():
 	current = root
-	queue = Queue.Queue()
+	queue = []
 	queue.put(current)
 	while not queue.empty():
 		current = queue.get()
-		print current.value
+		print (current.value)
 		for child in current.children:
 			queue.put(child)
 
@@ -51,7 +50,7 @@ def addString(input):
 def matchString(input):
 	inputBytes = input.encode('utf-8')
 	if len(inputBytes) == 0:
-		print 'No match'
+		print ('No match')
 		return
 	current = root
 	for inputByte in inputBytes:
@@ -59,15 +58,15 @@ def matchString(input):
 		if not child:
 			current = root
 		elif child.end:
-			print 'Match found: ' + input
+			print (f"Match found: {input}")
 			return;
 		else:
 			current = child
-	print 'No match found!'
+	print ('No match found!')
 
 
 def main(argv):
-	print 'Regex with nodes'
+	print ('Regex with nodes')
 	addString('Whs')
 	addString('Whg')
 	addString('abcdefg')

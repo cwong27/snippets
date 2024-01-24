@@ -11,7 +11,7 @@ def processFile(file):
 	try:
 		f = open(file, 'rb')
 	except:
-		print "Cannot open input file"
+		print("Cannot open input file")
 		exit()
 
 	pcap = dpkt.pcap.Reader(f)
@@ -23,7 +23,7 @@ def processFile(file):
 		eth = dpkt.ethernet.Ethernet(buf)
 
 		if not isinstance(eth.data, dpkt.ip.IP):
-			print 'Non IP Packet type not supported'
+			print('Non IP Packet type not supported')
 			continue
 		
 		ip = eth.data
@@ -43,12 +43,12 @@ def processFile(file):
 	frequency = max(set(differences), key=differences.count)
 
 	if differences.count(frequency) > 20:
-		print '------------------------------------------------------------------'
-		print 'Potential DoS attack via HTTP Chunked Transfer Encoding detected: '
-		print '------------------------------------------------------------------'
-		print 'Targeted IP: ', target_ip
-		print 'Numbers of connection to keep opened: ', len(dest_ports)
-		print 'Seconds between requests: ', frequency
+		print ('------------------------------------------------------------------')
+		print ('Potential DoS attack via HTTP Chunked Transfer Encoding detected: ')
+		print ('------------------------------------------------------------------')
+		print ('Targeted IP: ', target_ip)
+		print ('Numbers of connection to keep opened: ', len(dest_ports))
+		print ('Seconds between requests: ', frequency)
 
 def main(argv):
 	if len(sys.argv) != 2 :
