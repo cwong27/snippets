@@ -68,5 +68,4 @@ print(docs.getAtTime("test1", t3))
 print(docs.getAtTime("test1", t4))
 
 docs.getAll("test1")
-docs.getAll("test2")
 
