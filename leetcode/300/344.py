@@ -3,10 +3,10 @@ class Solution:
         """
         Do not return anything, modify s in-place instead.
         """
-        i, j = 0, len(s)-1
-        while i < j:
-            buf = s[i]
-            s[i] = s[j]
-            s[j] = buf
-            i += 1
-            j -= 1
+        l = len(s)
+        swap = ""
+        for i in range(int(l/2)):
+            swap = s[l-1-i]
+            s[l-1-i] = s[i]
+            s[i] = swap 
+        
