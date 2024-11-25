@@ -8,7 +8,7 @@ from flask import url_for
 from werkzeug.exceptions import abort
 
 from .auth import login_required
-from .db import get_db
+from ..backend.db import get_db
 
 bp = Blueprint("blog", __name__)
 

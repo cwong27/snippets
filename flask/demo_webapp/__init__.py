@@ -31,13 +31,13 @@ def create_app(test_config=None):
         return "Hello, World!"
 
     # register the database commands
-    from . import db
+    from .backend import db
 
     db.init_app(app)
 
     # apply the blueprints to the app
-    from . import auth
-    from . import blog
+    from .api import auth
+    from .api import blog
     from . import vulns
 
     app.register_blueprint(auth.bp)
