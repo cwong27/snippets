@@ -46,10 +46,12 @@ def create_app(test_config=None):
         db.create_all()
 
     # apply the blueprints to the app
+    from demo_webapp.api import admin
     from demo_webapp.api import auth
     from demo_webapp.api import blog
     from demo_webapp.vulns import vulns
 
+    app.register_blueprint(admin.bp)
     app.register_blueprint(auth.bp)
     app.register_blueprint(blog.bp)
     app.register_blueprint(vulns.bp)

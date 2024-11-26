@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Administration: Users{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form class="no-submit" method="GET" action="{{ url_for('admin.get_users') }}">
+        <input type="text" name="q" value="{{ search_query }}" placeholder="Search users by username">
+    </form>
+
+    {% if search_query %}
+        <p>Results for: <strong>{{ search_query }}</strong></p>
+    {% endif %}
+
+    {% if users %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            {% if pagination.has_prev %}
+                <a href="{{ url_for('admin.get_users', page=pagination.prev_num, q=search_query) }}">&laquo; Prev</a>
+            {% else %}
+                <span>&laquo; Prev</span>
+            {% endif %}
+
+            {% for page_num in pagination.iter_pages(left_edge=2, right_edge=2, left_current=2, right_current=2) %}
+                {% if page_num %}
+                    {% if page_num == pagination.page %}
+                        <a href="#" class="active">{{ page_num }}</a>
+                    {% else %}
+                        <a href="{{ url_for('admin.get_users', page=page_num, q=search_query) }}">{{ page_num }}</a>
+                    {% endif %}
+                {% else %}
+                    <span>...</span>
+                {% endif %}
+            {% endfor %}
+
+            {% if pagination.has_next %}
+                <a href="{{ url_for('admin.get_users', page=pagination.next_num, q=search_query) }}">Next &raquo;</a>
+            {% else %}
+                <span>Next &raquo;</span>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>No users found.</p>
+    {% endif %}
+{% endblock %}

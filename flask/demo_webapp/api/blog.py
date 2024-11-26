@@ -80,6 +80,10 @@ def create():
     """Create a new blog post."""
     if g.user is None:
         raise Unauthorized("You must be logged in to create a blog post.")
+    
+    if request.method == "GET":
+        return render_template("blog/create.html")
+    
     if request.method == "POST":
         # data = request.get_json()
         # if not data or 'title' not in data or 'body' not in data:
@@ -95,7 +99,8 @@ def create():
         db.session.add(new_blog)
         db.session.commit()
         return redirect(url_for("blog.index"))
-    return render_template("blog/create.html")
+    
+    return BadRequest("Invalid Method")
 
 
 @bp.route("/<int:id>/update", methods=("GET", "POST"))
@@ -109,6 +114,9 @@ def update(id):
     if post is None:
         raise NotFound(f"Blog with ID {id} not found.")
 
+    if request.method == "GET":
+        return render_template("blog/update.html", post=post)
+    
     if request.method == "POST":
         if post.author_id != g.user.id:
             raise Unauthorized("You do not have permission to update this blog post.")
@@ -123,7 +131,9 @@ def update(id):
         post.body = request.form["body"]
 
         db.session.commit()
-    return render_template("blog/update.html", post=post)
+        return redirect(url_for("blog.index"))
+    
+    return BadRequest("Invalid Method")
 
 
 @bp.route("/<int:id>/delete", methods=("POST",))
@@ -133,13 +143,16 @@ def delete(id):
     if g.user is None:
         raise Unauthorized("You must be logged in to delete a blog post.")
 
-    blog = Blog.query.get(id)
-    if blog is None:
-        raise NotFound(f"Blog with ID {id} not found.")
+    if request.method == "POST":
+        blog = Blog.query.get(id)
+        if blog is None:
+            raise NotFound(f"Blog with ID {id} not found.")
 
-    if blog.author_id != g.user.id:
-        raise Unauthorized("You do not have permission to delete this blog post.")
+        if blog.author_id != g.user.id:
+            raise Unauthorized("You do not have permission to delete this blog post.")
 
-    db.session.delete(blog)
-    db.session.commit()
-    return redirect(url_for("blog.index"))
+        db.session.delete(blog)
+        db.session.commit()
+        return redirect(url_for("blog.index"))
+    
+    return BadRequest("Invalid Method")

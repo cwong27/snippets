@@ -10,6 +10,7 @@ from flask import session
 from flask import url_for
 from werkzeug.security import check_password_hash
 from werkzeug.security import generate_password_hash
+from werkzeug.exceptions import NotFound, BadRequest, Unauthorized
 
 from demo_webapp import db
 from demo_webapp.models.User import User
@@ -44,6 +45,9 @@ def register():
     Validates that the username is not already taken. Hashes the
     password for security.
     """
+    if request.method == "GET":
+        return render_template("auth/register.html")
+
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
@@ -62,11 +66,15 @@ def register():
             db.session.commit()
             return redirect(url_for('auth.login'))
         flash(error)
-    return render_template("auth/register.html")
+
+    return BadRequest("Invalid Method")
 
 @bp.route("/login", methods=("GET", "POST"))
 def login():
     """Log in a registered user by adding the user id to the session."""
+    if request.method == "GET":
+        return render_template("auth/login.html")
+    
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
@@ -84,7 +92,9 @@ def login():
             session["user_id"] = user.id
             return redirect(url_for("index"))
         flash(error)
-    return render_template("auth/login.html")
+
+    return BadRequest("Invalid Method")
+    
 
 @bp.route("/logout")
 def logout():
